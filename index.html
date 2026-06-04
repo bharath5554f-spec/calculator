@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Student Toolkit</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dark-theme.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+  <script src="js/app.js" defer></script>
+  <script src="js/history.js" defer></script>
+  <script src="js/calculator.js" defer></script>
+  <script src="js/cgpa.js" defer></script>
+  <script src="js/attendance.js" defer></script>
+  <script src="js/percentage.js" defer></script>
+</head>
+<body>
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loader"></div>
+    <p>Preparing your academic workspace</p>
+  </div>
+
+  <aside class="sidebar" aria-label="Primary navigation">
+    <a class="brand" href="#dashboard" data-section="dashboard">
+      <span class="brand-mark">ST</span>
+      <span>
+        <strong>Smart Student</strong>
+        <small>Toolkit</small>
+      </span>
+    </a>
+    <nav class="nav-links">
+      <button class="nav-link active" data-section="dashboard" type="button"><span>01</span>Dashboard</button>
+      <button class="nav-link" data-section="calculator" type="button"><span>02</span>Calculator</button>
+      <button class="nav-link" data-section="cgpa" type="button"><span>03</span>CGPA</button>
+      <button class="nav-link" data-section="attendance" type="button"><span>04</span>Attendance</button>
+      <button class="nav-link" data-section="percentage" type="button"><span>05</span>Percentage</button>
+      <button class="nav-link" data-section="history" type="button"><span>06</span>History</button>
+    </nav>
+    <div class="sidebar-card">
+      <p class="eyebrow">Portfolio Build</p>
+      <strong>All results are saved locally in your browser.</strong>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Academic Productivity Platform</p>
+        <h1>Smart Student Toolkit</h1>
+      </div>
+      <div class="topbar-actions">
+        <button class="ghost-button" id="exportPdf" type="button">Export PDF</button>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <section class="page-section active" id="dashboard" data-page="dashboard">
+      <div class="overview-grid">
+        <article class="stat-card">
+          <span class="icon-pill">CG</span>
+          <p>Latest CGPA</p>
+          <strong id="statCgpa">--</strong>
+        </article>
+        <article class="stat-card">
+          <span class="icon-pill">AT</span>
+          <p>Attendance</p>
+          <strong id="statAttendance">--</strong>
+        </article>
+        <article class="stat-card">
+          <span class="icon-pill">PC</span>
+          <p>Percentage</p>
+          <strong id="statPercentage">--</strong>
+        </article>
+        <article class="stat-card">
+          <span class="icon-pill">HS</span>
+          <p>History Records</p>
+          <strong id="statHistory">0</strong>
+        </article>
+      </div>
+
+      <div class="dashboard-grid">
+        <article class="glass-card chart-card">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Analytics</p>
+              <h2>Academic Snapshot</h2>
+            </div>
+          </div>
+          <canvas id="analyticsChart" height="220"></canvas>
+          <p class="chart-fallback" id="chartFallback">Chart.js loads from CDN. If offline, the toolkit still works.</p>
+        </article>
+        <article class="glass-card">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Recent Work</p>
+              <h2>Latest Records</h2>
+            </div>
+          </div>
+          <div class="mini-history" id="recentRecords"></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="page-section" id="calculator" data-page="calculator">
+      <div class="tool-layout">
+        <article class="glass-card calculator-card">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Advanced Calculator</p>
+              <h2>Real-time Expression Solver</h2>
+            </div>
+            <button class="ghost-button" id="resetCalculator" type="button">Reset</button>
+          </div>
+          <div class="calc-display">
+            <div id="calcExpression">0</div>
+            <strong id="calcPreview">Ready</strong>
+          </div>
+          <div class="calculator-grid" id="calculatorGrid">
+            <button data-action="clear" class="danger" type="button">C</button>
+            <button data-action="delete" type="button">DEL</button>
+            <button data-value="%" type="button">%</button>
+            <button data-value="/" class="operator" type="button">&divide;</button>
+            <button data-value="7" type="button">7</button>
+            <button data-value="8" type="button">8</button>
+            <button data-value="9" type="button">9</button>
+            <button data-value="*" class="operator" type="button">&times;</button>
+            <button data-value="4" type="button">4</button>
+            <button data-value="5" type="button">5</button>
+            <button data-value="6" type="button">6</button>
+            <button data-value="-" class="operator" type="button">-</button>
+            <button data-value="1" type="button">1</button>
+            <button data-value="2" type="button">2</button>
+            <button data-value="3" type="button">3</button>
+            <button data-value="+" class="operator" type="button">+</button>
+            <button data-value="0" type="button">0</button>
+            <button data-value="." type="button">.</button>
+            <button id="copyCalculator" type="button">Copy</button>
+            <button data-action="equals" class="equals" type="button">=</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="page-section" id="cgpa" data-page="cgpa">
+      <div class="tool-layout wide">
+        <article class="glass-card">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">CGPA Calculator</p>
+              <h2>Semester Grade Planner</h2>
+            </div>
+            <div class="button-row">
+              <button class="ghost-button" id="addSemester" type="button">Add Subject</button>
+              <button class="ghost-button" id="resetCgpa" type="button">Reset</button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="input-table">
+              <thead>
+                <tr>
+                  <th>Subject</th>
+                  <th>Grade</th>
+                  <th>Credits</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="cgpaRows"></tbody>
+            </table>
+          </div>
+        </article>
+        <aside class="summary-card">
+          <p class="eyebrow">Result Summary</p>
+          <strong id="cgpaResult">0.00</strong>
+          <span id="cgpaSummary">Add grades and credits to calculate.</span>
+          <button class="primary-button" id="saveCgpa" type="button">Save CGPA</button>
+        </aside>
+      </div>
+    </section>
+
+    <section class="page-section" id="attendance" data-page="attendance">
+      <div class="tool-layout">
+        <article class="glass-card">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Attendance Calculator</p>
+              <h2>Minimum Class Planner</h2>
+            </div>
+            <button class="ghost-button" id="resetAttendance" type="button">Reset</button>
+          </div>
+          <form class="form-grid" id="attendanceForm">
+            <label>Classes Attended<input id="classesAttended" type="number" min="0" placeholder="48"></label>
+            <label>Total Classes<input id="totalClasses" type="number" min="1" placeholder="60"></label>
+          </form>
+          <div class="progress-shell">
+            <div class="progress-bar" id="attendanceBar"></div>
+          </div>
+          <div class="target-grid" id="attendanceTargets"></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="page-section" id="percentage" data-page="percentage">
+      <div class="tool-layout">
+        <article class="glass-card">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Percentage Calculator</p>
+              <h2>Marks and Grade Predictor</h2>
+            </div>
+            <button class="ghost-button" id="resetPercentage" type="button">Reset</button>
+          </div>
+          <form class="form-grid" id="percentageForm">
+            <label>Obtained Marks<input id="obtainedMarks" type="number" min="0" step="0.01" placeholder="420"></label>
+            <label>Total Marks<input id="totalMarks" type="number" min="1" step="0.01" placeholder="500"></label>
+          </form>
+          <div class="result-hero">
+            <strong id="percentageResult">0%</strong>
+            <span id="gradePrediction">Enter marks to predict grade.</span>
+          </div>
+          <button class="primary-button" id="savePercentage" type="button">Save Percentage</button>
+        </article>
+      </div>
+    </section>
+
+    <section class="page-section" id="history" data-page="history">
+      <article class="glass-card">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Calculation History</p>
+            <h2>Saved Academic Records</h2>
+          </div>
+          <button class="ghost-button" id="clearAllHistory" type="button">Clear All</button>
+        </div>
+        <input class="search-input" id="historySearch" type="search" placeholder="Search calculator, CGPA, attendance, percentage...">
+        <div class="history-list" id="historyList"></div>
+      </article>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
