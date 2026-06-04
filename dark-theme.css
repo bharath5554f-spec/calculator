@@ -1,0 +1,28 @@
+body.dark {
+  color-scheme: dark;
+  --bg-1: #081528;
+  --bg-2: #171033;
+  --bg-3: #062e2a;
+  --surface: rgba(255, 255, 255, 0.11);
+  --surface-strong: rgba(255, 255, 255, 0.17);
+  --text: #f7fbff;
+  --muted: #a9b7c9;
+  --line: rgba(255, 255, 255, 0.18);
+  --primary: #6ea8ff;
+  --primary-2: #4ee0c1;
+  --accent: #ffd166;
+  --danger: #ff7a7f;
+  --shadow: 0 28px 80px rgba(0, 0, 0, 0.34);
+}
+
+body.dark .theme-toggle span {
+  transform: translateX(22px);
+}
+
+body.dark .calc-display,
+body.dark .input-table input,
+body.dark .input-table select,
+body.dark .form-grid input,
+body.dark .search-input {
+  background: rgba(255, 255, 255, 0.1);
+}
